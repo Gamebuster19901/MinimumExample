@@ -18,8 +18,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.io.FileUtils;
-
 import com.wildermods.wilderforge.launch.patch.LegacyPatch;
 import static com.wildermods.wilderforge.api.modJsonV1.ModJsonConstants.*;
 

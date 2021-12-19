@@ -1,0 +1,7 @@
+[22:47:44] [ERROR] [FabricLoader/]: Uncaught exception in thread "main"
+java.lang.NullPointerException
+	at com.wildermods.wilderforge.launch.services.WildermythGameProvider.locateGame(WildermythGameProvider.java:135)
+	at net.fabricmc.loader.impl.launch.knot.Knot.createGameProvider(Knot.java:184)
+	at net.fabricmc.loader.impl.launch.knot.Knot.init(Knot.java:125)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:71)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)

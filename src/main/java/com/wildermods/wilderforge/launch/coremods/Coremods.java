@@ -11,6 +11,7 @@ public final class Coremods {
 	private Coremods() {}
 	
 	public static CoremodInfo[] getAllCoremods() {
+		System.out.println(CoremodInfo.class.getClassLoader());
 		ModContainer[] modContainers = FabricLoader.getInstance().getAllMods().toArray(new ModContainer[]{});
 		CoremodInfo[] coremods = new CoremodInfo[modContainers.length];
 		for(int i = 0; i < modContainers.length; i++) {
@@ -20,11 +21,12 @@ public final class Coremods {
 	}
 	
 	public static CoremodInfo getCoremod(String modid) {
-		if(modid == null) {
-			return new CoremodInfo(FabricLoader.getInstance().getModContainer("wildermyth").get()); //wildermyth's CORE modid is null
-		}
-		ModContainer modContainer = FabricLoader.getInstance().getModContainer(modid).orElse(null);
-		return modContainer != null ? new CoremodInfo(modContainer) : new MissingCoremod();
+		ModContainer modContainer = FabricLoader.getInstance()
+				.getModContainer(modid).orElse(null);
+		
+		return modContainer != null ? 
+				new CoremodInfo(modContainer) : 
+					new MissingCoremod();
 	}
 	
 	public static int getCoremodCount() {

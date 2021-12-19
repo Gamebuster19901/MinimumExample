@@ -1,12 +1,7 @@
 package com.wildermods.wilderforge.api.modLoadingV1;
 
-import com.worldwalkergames.legacy.game.mods.ModInfo;
-import com.worldwalkergames.legacy.server.context.ServerDataContext;
-import com.worldwalkergames.legacy.server.context.ServerDataContext.ModLocation;
-
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
-import net.fabricmc.loader.api.metadata.CustomValue.CvArray;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.Person;
 
@@ -16,68 +11,23 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import static com.wildermods.wilderforge.api.modJsonV1.ModJsonConstants.*;
-import com.wildermods.wilderforge.launch.InternalOnly;
-import com.wildermods.wilderforge.launch.Main;
 
-public class CoremodInfo extends ModInfo implements ModContainer {
-
-	public static Files files = Gdx.files;
+public class CoremodInfo implements ModContainer {
 	
 	public final ModContainer coremod;
 	
-	@InternalOnly
 	public CoremodInfo(ModContainer coremod) {
 
 		ModMetadata metadata = coremod.getMetadata();
 		
-		modId = metadata.getId();
-		modLocation = ServerDataContext.ModLocation.core;
-		modSteamWorkshopId = null;
-		alwaysOn = true;
-		showInStoryDialog = true;
-		showInModConfig = true;
-		listInCredits = true;
-		
-		this.folder = getFolder();
 		
 		CustomValue HOMEPAGEV = metadata.getCustomValue(HOMEPAGE);
 		
-		if(HOMEPAGEV != null) {
-			url = metadata.getCustomValue(HOMEPAGE).getAsString();
-		}
-		
-		CustomValue creditArrayV = metadata.getCustomValue(CREDITS);
-		CvArray creditArray = null;
-		if(creditArrayV != null) {
-			creditArray = creditArrayV.getAsArray();
-		}
-		customCreditLines = null;
-		if(creditArray != null) {
-			customCreditLines = new String[creditArray.size()];
-			for(int i = 0; i < creditArray.size(); i++) {
-				customCreditLines[i] = creditArray.get(i).getAsString();
-			}
-		}
-		
-		
-		
-		author = grammaticallyCorrectAuthorList((Person[]) metadata.getAuthors().toArray(new Person[]{}));
-		
-		Main.LOGGER.info(Arrays.toString(customCreditLines));
-		name = metadata.getName();
-		modLocation = ModLocation.core;
 		this.coremod = coremod;
 	}
 	
 	protected CoremodInfo() {this.coremod = null;};
-	
-	public FileHandle getFolder() {
-		return files.classpath("");
-	}
 	
 	private String grammaticallyCorrectAuthorList(Person[] authors) {
 		if(authors.length == 0) {
@@ -117,7 +67,7 @@ public class CoremodInfo extends ModInfo implements ModContainer {
 	
 	@Override
 	public String toString() {
-		return modId;
+		return coremod.getMetadata().getId();
 	}
 	
 	public ResourceBundle getResourceBundle(String path, Locale locale) {
@@ -125,7 +75,6 @@ public class CoremodInfo extends ModInfo implements ModContainer {
 			return ResourceBundle.getBundle(path.replace(".properties", ""), locale);
 		}
 		catch (MissingResourceException e) {
-			System.out.println("No interface.properties in " + modId);
 			return null;
 		}
 	}

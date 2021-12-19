@@ -16,6 +16,7 @@ public class LegacyPatch extends GamePatch {
 	@Override
 	public void process(FabricLauncher launcher, Function<String, ClassReader> classSource,
 			Consumer<ClassNode> classEmitter) {
+		
 		String entrypoint = launcher.getEntrypoint();
 		String gameEntryPoint;
 		ClassNode mainClass = readClass(classSource.apply(entrypoint));
@@ -24,7 +25,7 @@ public class LegacyPatch extends GamePatch {
 			throw new LinkageError ("Could not load main class " + entrypoint + "!");
 		}
 		
-		MethodNode mainMethod = findMethod(mainClass, (method) -> method.name.equals("<clinit>") && method.desc.equals("()V"));
+		MethodNode mainMethod = findMethod(mainClass, (method) -> method.name.equals("main"));
 		
 		if(mainMethod == null) {
 			throw new NoSuchMethodError("Could not find main method in " + entrypoint +  "!");

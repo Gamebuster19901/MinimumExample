@@ -2,7 +2,7 @@
 
 1. Clone this repo
 2. run `./gradlew build`
-3. navigate to `build/libs`, and delete `wilderforge-0.0.0.0.jar`
+3. navigate to `build/libs`, and delete `wilderforge-0.0.0.0.jar`. Do not delete the fat jar.
 4. add fabric loader 0.12.12 into `build/libs`
 5. run `java -Dfabric.addMods=./wilderforge-0.0.0.0-all.jar -jar wilderforge-0.0.0.0-all.jar` inside of `build/libs`
 
